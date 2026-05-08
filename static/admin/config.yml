@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: ""  # 替换为你的 GitHub 用户名/仓库名，如 "username/blog"
+  repo: "TSys55/TSys55.github.io"
   branch: main
   base_url: https://api.github.com
 
