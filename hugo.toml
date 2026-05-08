@@ -1,4 +1,4 @@
-baseURL = "https://example.github.io/"
+baseURL = "https://tsys55.github.io/"
 title = "My Blog"
 paginate = 10
 theme = "PaperMod"
@@ -6,8 +6,8 @@ defaultContentLanguage = "zh"
 hasCJKLanguage = true
 
 [params]
-  author = "Blog Author"
-  description = "A personal blog built with Hugo and PaperMod"
+  author = "TSys55"
+  description = "记录技术、生活与思考"
   keywords = ["blog", "personal", "hugo"]
   DateFormat = "2006-01-02"
   defaultTheme = "auto"
@@ -27,7 +27,7 @@ hasCJKLanguage = true
 
 [[params.socialIcons]]
   name = "github"
-  url = "https://github.com/"
+  url = "https://github.com/TSys55"
 
 [params.assets]
   favicon = "/favicon.ico"
@@ -52,14 +52,17 @@ hasCJKLanguage = true
     code = ""
 
 [params.comments]
+  enable = true
+
   [params.comments.giscus]
-    repo = ""
-    repoId = ""
-    category = ""
-    categoryId = ""
+    repo = "TSys55/TSys55.github.io"
+    repoId = "R_kgDOSXtUAA"
+    category = "博客评论"
+    categoryId = "DIC_kwDOSXtUAM4C8lPp"
     mapping = "pathname"
+    strict = "0"
     reactionsEnabled = "1"
-    emitMetadata = "0"
+    emitMetadata = "1"
     inputPosition = "top"
     theme = "preferred_color_scheme"
     lang = "zh-CN"

@@ -4,6 +4,7 @@ date: 2026-05-08
 categories: ["技术"]
 tags: ["Hugo", "博客", "GitHub Pages"]
 draft: false
+comments: true
 ---
 
 ## 为什么选择 Hugo
