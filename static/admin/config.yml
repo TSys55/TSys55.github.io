@@ -2,8 +2,7 @@ backend:
   name: github
   repo: "TSys55/TSys55.github.io"
   branch: main
-  base_url: https://decap-oauth.fly.dev
-  auth_endpoint: auth
+  base_url: https://api.netlify.com
   app_id: "Ov23li66pBvzfLw1pJvc"
 
 media_folder: "static/img"
