@@ -1,0 +1,10 @@
+{{- if hugo.IsProduction }}
+{{- with .Site.Params.analytics.goatcounter.code }}
+<script data-goatcounter="https://{{ . }}.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<noscript>
+  <img src="https://{{ . }}.goatcounter.com/count?p={{ $.RelPermalink }}"
+       alt="" style="display:none">
+</noscript>
+{{- end }}
+{{- end }}
