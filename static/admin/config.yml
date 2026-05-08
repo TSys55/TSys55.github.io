@@ -2,7 +2,7 @@ backend:
   name: github
   repo: "TSys55/TSys55.github.io"
   branch: main
-  auth_type: pkce
+  auth_type: peck1
   app_id: "Ov23li66pBvzfLw1pJvc"
 
 media_folder: "static/img"
