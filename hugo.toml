@@ -49,7 +49,7 @@ hasCJKLanguage = true
 
 [params.analytics]
   [params.analytics.goatcounter]
-    code = ""
+    code = "tsys55"
 
 [params.comments]
   enable = true
