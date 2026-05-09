@@ -1,8 +1,14 @@
 ---
-title: "为 Hugo 博客配置在线编辑系统"
+title: 为 Hugo 博客配置在线编辑系统
 date: 2026-05-08
-categories: ["技术"]
-tags: ["Hugo", "Decap CMS", "Sveltia CMS", "OAuth", "Cloudflare Workers"]
+categories:
+  - 技术
+tags:
+  - Hugo
+  - Decap CMS
+  - Sveltia CMS
+  - OAuth
+  - Cloudflare Workers
 draft: false
 comments: true
 ---
@@ -21,7 +27,7 @@ Sveltia CMS 是 Decap CMS 的官方继任者。它是一个纯前端的 Git-base
 
 ## 整体架构
 
-```
+```plain
 浏览器 (Sveltia CMS)
     ↓ OAuth 登录
 Cloudflare Workers (OAuth 代理)
@@ -41,7 +47,7 @@ Cloudflare Workers (换取 Token)
 2. 填写以下信息：
 
 | 字段 | 值 |
-|---|---|
+| --- | --- |
 | Application name | 随意，如 `My Blog CMS` |
 | Homepage URL | `https://你的用户名.github.io` |
 | Authorization callback URL | 先留空，后面会改 |
@@ -61,13 +67,15 @@ Cloudflare Workers (换取 Token)
 1. 打开 [sveltia-cms-auth 仓库](https://github.com/sveltia/sveltia-cms-auth)
 2. 点击 **"Deploy to Cloudflare Workers"** 一键部署
 3. 部署完成后，在 Cloudflare 控制台 → Workers & Pages 中找到你的 Worker，记下 URL，格式类似：
-   ```
+
+```plain
    https://sveltia-cms-auth.你的ID.workers.dev
-   ```
+```
+
 4. 进入 Worker 的 **Settings → Variables and Secrets**，添加环境变量：
 
 | 变量名 | 值 |
-|---|---|
+| --- | --- |
 | `GITHUB_CLIENT_ID` | 你的 Client ID |
 | `GITHUB_CLIENT_SECRET` | 你的 Client Secret |
 
@@ -77,7 +85,7 @@ Cloudflare Workers (换取 Token)
 
 回到 GitHub OAuth App 设置页，将 **Authorization callback URL** 改为：
 
-```
+```plain
 https://sveltia-cms-auth.你的ID.workers.dev/callback
 ```
 
@@ -120,35 +128,34 @@ media_folder: "static/img"
 public_folder: "/img"
 
 collections:
-  - name: "posts"
+    - name: "posts"
     label: "文章"
     folder: "content/posts"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "标题", name: "title", widget: "string" }
-      - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD" }
-      - { label: "分类", name: "categories", widget: "list", default: ["技术"] }
-      - { label: "标签", name: "tags", widget: "list", default: [] }
-      - { label: "草稿", name: "draft", widget: "boolean", default: false }
-      - { label: "正文", name: "body", widget: "markdown" }
-
-  - name: "pages"
+            - { label: "标题", name: "title", widget: "string" }
+            - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD" }
+            - { label: "分类", name: "categories", widget: "list", default: ["技术"] }
+            - { label: "标签", name: "tags", widget: "list", default: [] }
+            - { label: "草稿", name: "draft", widget: "boolean", default: false }
+            - { label: "正文", name: "body", widget: "markdown" }
+      - name: "pages"
     label: "页面"
     folder: "content"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "标题", name: "title", widget: "string" }
-      - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD" }
-      - { label: "草稿", name: "draft", widget: "boolean", default: false }
-      - { label: "正文", name: "body", widget: "markdown" }
+            - { label: "标题", name: "title", widget: "string" }
+            - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD" }
+            - { label: "草稿", name: "draft", widget: "boolean", default: false }
+            - { label: "正文", name: "body", widget: "markdown" }
 ```
 
 ### 4.3 配置说明
 
 | 字段 | 说明 |
-|---|---|
+| --- | --- |
 | `repo` | GitHub 仓库，格式 `用户名/仓库名` |
 | `branch` | 部署分支，通常是 `main` |
 | `base_url` | OAuth 代理地址 |
@@ -182,7 +189,7 @@ git push
 
 Sveltia CMS 支持 PKCE（无需 OAuth 代理），但 GitHub OAuth 不支持 PKCE 流程，会报错：
 
-```
+```plain
 PKCE authorization is not yet supported due to GitHub's limitations.
 ```
 
@@ -203,7 +210,7 @@ PKCE authorization is not yet supported due to GitHub's limitations.
 ## 最终方案总结
 
 | 组件 | 选择 | 原因 |
-|---|---|---|
+| --- | --- | --- |
 | CMS | Sveltia CMS | Decap CMS 继任者，仍在维护 |
 | OAuth 代理 | Cloudflare Workers (sveltia-cms-auth) | 免费、官方支持、部署简单 |
 | CDN | jsdelivr | 国内可访问，稳定 |
