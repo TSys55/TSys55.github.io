@@ -1,6 +1,6 @@
 ---
 title: "Hugo 博客集成 GoatCounter 网站分析"
-date: 2026-05-09
+date: 2026-05-08
 categories: ["技术"]
 tags: ["Hugo", "GoatCounter", "网站分析", "隐私", "GitHub Pages"]
 draft: false

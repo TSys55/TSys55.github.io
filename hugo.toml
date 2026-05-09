@@ -4,6 +4,7 @@ paginate = 10
 theme = "PaperMod"
 defaultContentLanguage = "zh"
 hasCJKLanguage = true
+buildFuture = true
 
 [params]
   author = "TSys55"

@@ -1,6 +1,6 @@
 ---
 title: "为 Hugo 博客配置在线编辑系统"
-date: 2026-05-09
+date: 2026-05-08
 categories: ["技术"]
 tags: ["Hugo", "Decap CMS", "Sveltia CMS", "OAuth", "Cloudflare Workers"]
 draft: false
