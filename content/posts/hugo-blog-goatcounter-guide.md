@@ -1,8 +1,14 @@
 ---
-title: "Hugo 博客集成 GoatCounter 网站分析"
+title: Hugo 博客集成 GoatCounter 网站分析
 date: 2026-05-08
-categories: ["技术"]
-tags: ["Hugo", "GoatCounter", "网站分析", "隐私", "GitHub Pages"]
+categories:
+  - 技术
+tags:
+  - Hugo
+  - GoatCounter
+  - 网站分析
+  - 隐私
+  - GitHub Pages
 draft: false
 comments: true
 ---
@@ -16,8 +22,8 @@ comments: true
 ### 核心优势
 
 | 特性 | GoatCounter | Google Analytics |
-|---|---|---|
-| 脚本体积 | ~2.5KB | ~50KB+ |
+| --- | --- | --- |
+| 脚本体积 | \~2.5KB | \~50KB+ |
 | Cookie | 不使用 | 需要 |
 | GDPR 合规 | 默认合规 | 需要同意弹窗 |
 | 数据存储 | 仅聚合统计 | 收集个人数据 |
@@ -60,7 +66,7 @@ comments: true
 
 PaperMod 主题预留了 `extend_footer.html` 作为自定义脚本的注入点。在项目根目录创建：
 
-```
+```plain
 layouts/partials/extend_footer.html
 ```
 
@@ -182,7 +188,7 @@ goatcounter.count({
 参数说明：
 
 | 参数 | 类型 | 说明 |
-|---|---|---|
+| --- | --- | --- |
 | `path` | string | 事件路径（必填） |
 | `event` | boolean | 设为 `true` 标记为事件而非页面浏览 |
 | `title` | string | 事件标题（可选） |
@@ -299,7 +305,7 @@ docker run -d \
 
 生产环境建议放在反向代理后面。以 Caddy 为例（自动 HTTPS）：
 
-```
+```plain
 analytics.yourdomain.com {
     reverse_proxy localhost:8080
 }
@@ -308,7 +314,7 @@ analytics.yourdomain.com {
 ### 自建 vs 云服务
 
 | 对比项 | 云服务 | 自建 |
-|---|---|---|
+| --- | --- | --- |
 | 成本 | 免费（10 万次/月） | 服务器费用 |
 | 维护 | 零维护 | 需要自己维护 |
 | 数据保留 | 免费 6 个月 | 无限制 |
@@ -320,7 +326,7 @@ analytics.yourdomain.com {
 ## 价格方案
 
 | 方案 | 价格 | 页面浏览量 | 数据保留 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 免费 | $0 | 10 万次/月 | 6 个月 |
 | 个人版 | $5/月 或 $50/年 | 无限制 | 无限制 |
 | 商业版 | $10/月 或 $100/年 | 无限制 | 无限制 + 优先支持 |
