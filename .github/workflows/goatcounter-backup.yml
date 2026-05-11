@@ -13,123 +13,19 @@ on:
 permissions:
   contents: write
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   backup:
     runs-on: ubuntu-latest
     env:
       GC_CODE: tsys55
       GC_TOKEN: ${{ secrets.GOATCOUNTER_API_TOKEN }}
+      BACKUP_DAYS: ${{ inputs.days || '7' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Backup page statistics via Hits API
-        run: |
-          if [ -z "$GC_TOKEN" ]; then
-            echo "ERROR: GOATCOUNTER_API_TOKEN secret is not set"
-            exit 1
-          fi
-
-          mkdir -p data/goatcounter-backup
-          DATE=$(date +%Y-%m-%d)
-          DAYS=${{ inputs.days }}
-
-          # Build query parameters
-          if [ "$DAYS" = "0" ] || [ -z "$DAYS" ]; then
-            QUERY=""
-          else
-            START=$(date -u -d "${DAYS} days ago" +%Y-%m-%dT00:00:00Z)
-            QUERY="?start=${START}"
-          fi
-
-          # Fetch all pages (paginate)
-          ALL_HITS='[]'
-          PAGE=0
-          while true; do
-            OFFSET_PARAM=""
-            if [ "$PAGE" -gt 0 ]; then
-              OFFSET_PARAM="&offset=$((PAGE * 100))"
-            fi
-            URL="https://${GC_CODE}.goatcounter.com/api/v0/hits${QUERY}${OFFSET_PARAM}"
-            echo "Fetching: $URL"
-            HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/gc-hits.json "$URL" \
-              -H "Authorization: Bearer ${GC_TOKEN}")
-            echo "HTTP status: $HTTP_CODE"
-
-            if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
-              echo "ERROR: API request failed"
-              cat /tmp/gc-hits.json
-              exit 1
-            fi
-
-            HITS=$(python3 -c "
-import sys, json
-data = json.load(open('/tmp/gc-hits.json'))
-hits = data.get('hits', [])
-total = data.get('total', 0)
-more = data.get('more', False)
-print(json.dumps(hits))
-print(f'Fetched {len(hits)} pages, total={total}, more={more}', file=sys.stderr)
-" 2>&1)
-            HIT_JSON=$(echo "$HITS" | head -1)
-            echo "$HITS" | tail -1 >&2
-
-            ALL_HITS=$(python3 -c "
-import sys, json
-old = json.loads('$ALL_HITS')
-new = json.loads('''$HIT_JSON''')
-print(json.dumps(old + new))
-")
-
-            MORE=$(python3 -c "import json; print(json.load(open('/tmp/gc-hits.json')).get('more', False))")
-            if [ "$MORE" = "False" ]; then
-              break
-            fi
-            PAGE=$((PAGE + 1))
-          done
-
-          # Also fetch browser/system/location stats
-          STATS_URL="https://${GC_CODE}.goatcounter.com/api/v0/stats${QUERY}"
-          echo "Fetching stats: $STATS_URL"
-          curl -s -o /tmp/gc-stats.json "$STATS_URL" \
-            -H "Authorization: Bearer ${GC_TOKEN}"
-
-          # Save combined backup as JSON
-          python3 -c "
-import json, datetime
-hits = json.loads('''$ALL_HITS''')
-stats = {}
-try:
-    stats = json.load(open('/tmp/gc-stats.json'))
-except: pass
-
-backup = {
-    'date': '$DATE',
-    'days': '$DAYS',
-    'total_pages': len(hits),
-    'hits': hits,
-    'stats': stats
-}
-
-with open('data/goatcounter-backup/${DATE}.json', 'w', encoding='utf-8') as f:
-    json.dump(backup, f, ensure_ascii=False, indent=2)
-
-print(f'Saved {len(hits)} pages to data/goatcounter-backup/${DATE}.json')
-"
-
-          # Show summary
-          cat "data/goatcounter-backup/${DATE}.json" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-print('--- Backup Summary ---')
-print(f'Total pages: {data[\"total_pages\"]}')
-for h in data['hits'][:10]:
-    print(f'  {h.get(\"path\",\"\")} — {h.get(\"count\",0)} visits')
-"
+      - name: Run backup
+        run: python3 scripts/gc-backup.py
 
       - name: Commit backup
         run: |
