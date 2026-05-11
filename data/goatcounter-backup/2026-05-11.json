@@ -1,0 +1,31 @@
+{
+  "date": "2026-05-11",
+  "total_views": 10,
+  "total_pages": 5,
+  "pages": [
+    {
+      "path": "TOTAL",
+      "views": 13
+    },
+    {
+      "path": "/",
+      "views": 6
+    },
+    {
+      "path": "/archives/",
+      "views": 1
+    },
+    {
+      "path": "/posts/hugo-future-date-timezone-issue/",
+      "views": 1
+    },
+    {
+      "path": "/posts/hugo-blog-goatcounter-guide/",
+      "views": 1
+    },
+    {
+      "path": "/posts/my-first-post/",
+      "views": 1
+    }
+  ]
+}
