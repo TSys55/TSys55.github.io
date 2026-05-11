@@ -32,11 +32,11 @@ jobs:
             echo "ERROR: GOATCOUNTER_API_TOKEN secret is not set"
             exit 1
           fi
-          BODY='{}'
+          BODY='{"format":"csv"}'
           LAST_FILE="data/goatcounter-backup/.last-export"
           if [ -f "$LAST_FILE" ]; then
             LAST_ID=$(cat "$LAST_FILE")
-            BODY="{\"start_from_hit_id\": $LAST_ID}"
+            BODY="{\"format\":\"csv\",\"start_from_hit_id\": $LAST_ID}"
           fi
           HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/gc-export-resp.json \
             -X POST "https://${GC_CODE}.goatcounter.com/api/v0/export" \
