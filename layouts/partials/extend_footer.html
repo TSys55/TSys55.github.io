@@ -6,5 +6,33 @@
   <img src="https://{{ . }}.goatcounter.com/count?p={{ $.RelPermalink }}"
        alt="" style="display:none">
 </noscript>
+<script>
+(function() {
+  var code = '{{ . }}';
+  var els = document.querySelectorAll('.gc-views');
+  if (!els.length) return;
+  els.forEach(function(el) {
+    var raw = el.getAttribute('data-page-path').replace(/\/$/, '');
+    var r = new XMLHttpRequest();
+    r.open('GET', 'https://' + code + '.goatcounter.com/counter/'
+           + encodeURIComponent(raw).replace(/%2F/g, '/') + '.json', true);
+    r.onload = function() {
+      if (this.status === 200) {
+        try {
+          var d = JSON.parse(this.responseText);
+          el.innerText = d.count + ' 次浏览';
+          el.style.opacity = '1';
+        } catch(e) {
+          el.style.display = 'none';
+        }
+      } else {
+        el.style.display = 'none';
+      }
+    };
+    r.onerror = function() { el.style.display = 'none'; };
+    r.send();
+  });
+})();
+</script>
 {{- end }}
 {{- end }}
