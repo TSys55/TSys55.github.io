@@ -60,18 +60,26 @@ jobs:
 
       - name: Wait for export
         run: |
+          echo "Checking export id: ${{ steps.create.outputs.id }}"
           for i in $(seq 1 30); do
             sleep 10
-            RESP=$(curl -s "https://${GC_CODE}.goatcounter.com/api/v0/export/${{ steps.create.outputs.id }}" \
+            HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/gc-status.json \
+              "https://${GC_CODE}.goatcounter.com/api/v0/export/${{ steps.create.outputs.id }}" \
               -H "Authorization: Bearer ${GC_TOKEN}")
-            STATUS=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('state',''))" 2>/dev/null || echo "")
-            echo "Attempt $i: state=$STATUS"
-            if [ "$STATUS" = "done" ]; then
-              LAST_HIT=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('last_hit_id',''))" 2>/dev/null || echo "")
-              echo "Export ready. last_hit_id=$LAST_HIT"
-              mkdir -p data/goatcounter-backup
-              echo "$LAST_HIT" > data/goatcounter-backup/.last-export
-              exit 0
+            echo "Attempt $i: HTTP=$HTTP_CODE"
+            cat /tmp/gc-status.json
+            echo ""
+            RESP=$(cat /tmp/gc-status.json)
+            if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+              STATUS=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('state',''))" 2>/dev/null || echo "")
+              echo "state=$STATUS"
+              if [ "$STATUS" = "done" ]; then
+                LAST_HIT=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('last_hit_id',''))" 2>/dev/null || echo "")
+                echo "Export ready. last_hit_id=$LAST_HIT"
+                mkdir -p data/goatcounter-backup
+                echo "$LAST_HIT" > data/goatcounter-backup/.last-export
+                exit 0
+              fi
             fi
           done
           echo "Export timed out"
