@@ -62,7 +62,7 @@ jobs:
         run: |
           echo "Checking export id: ${{ steps.create.outputs.id }}"
           for i in $(seq 1 30); do
-            sleep 10
+            sleep 5
             HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/gc-status.json \
               "https://${GC_CODE}.goatcounter.com/api/v0/export/${{ steps.create.outputs.id }}" \
               -H "Authorization: Bearer ${GC_TOKEN}")
@@ -71,11 +71,16 @@ jobs:
             echo ""
             RESP=$(cat /tmp/gc-status.json)
             if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-              STATUS=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('state',''))" 2>/dev/null || echo "")
-              echo "state=$STATUS"
-              if [ "$STATUS" = "done" ]; then
-                LAST_HIT=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('last_hit_id',''))" 2>/dev/null || echo "")
-                echo "Export ready. last_hit_id=$LAST_HIT"
+              FINISHED=$(echo "$RESP" | python3 -c "import sys,json; v=json.load(sys.stdin).get('finished_at',''); print('1' if v else '0')" 2>/dev/null || echo "0")
+              HAS_ERROR=$(echo "$RESP" | python3 -c "import sys,json; v=json.load(sys.stdin).get('error',''); print('1' if v else '0')" 2>/dev/null || echo "0")
+              if [ "$HAS_ERROR" = "1" ]; then
+                echo "ERROR: Export failed"
+                exit 1
+              fi
+              if [ "$FINISHED" = "1" ]; then
+                LAST_HIT=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('last_hit_id',0))" 2>/dev/null || echo "0")
+                NUM_ROWS=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('num_rows',0))" 2>/dev/null || echo "0")
+                echo "Export ready. rows=$NUM_ROWS last_hit_id=$LAST_HIT"
                 mkdir -p data/goatcounter-backup
                 echo "$LAST_HIT" > data/goatcounter-backup/.last-export
                 exit 0
