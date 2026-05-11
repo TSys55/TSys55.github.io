@@ -25,20 +25,34 @@ jobs:
       - name: Create export
         id: create
         run: |
+          set -x
+          echo "GC_CODE=${GC_CODE}"
+          echo "GC_TOKEN length=${#GC_TOKEN}"
+          if [ -z "$GC_TOKEN" ]; then
+            echo "ERROR: GOATCOUNTER_API_TOKEN secret is not set"
+            exit 1
+          fi
           BODY='{}'
           LAST_FILE="data/goatcounter-backup/.last-export"
           if [ -f "$LAST_FILE" ]; then
             LAST_ID=$(cat "$LAST_FILE")
             BODY="{\"start_from_hit_id\": $LAST_ID}"
           fi
-          RESP=$(curl -s -X POST "https://${GC_CODE}.goatcounter.com/api/v0/export" \
+          HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/gc-export-resp.json \
+            -X POST "https://${GC_CODE}.goatcounter.com/api/v0/export" \
             -H 'Content-Type: application/json' \
             -H "Authorization: Bearer ${GC_TOKEN}" \
             -d "$BODY")
-          echo "resp=$RESP" >> "$GITHUB_OUTPUT"
-          ID=$(echo "$RESP" | grep -o '"id":[0-9]*' | head -1 | cut -d: -f2)
+          echo "HTTP status: $HTTP_CODE"
+          cat /tmp/gc-export-resp.json
+          RESP=$(cat /tmp/gc-export-resp.json)
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "ERROR: API returned HTTP $HTTP_CODE"
+            exit 1
+          fi
+          ID=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('id',''))" 2>/dev/null || echo "")
           if [ -z "$ID" ]; then
-            echo "Failed to create export: $RESP"
+            echo "ERROR: Could not parse export id from response"
             exit 1
           fi
           echo "id=$ID" >> "$GITHUB_OUTPUT"
@@ -50,11 +64,12 @@ jobs:
             sleep 10
             RESP=$(curl -s "https://${GC_CODE}.goatcounter.com/api/v0/export/${{ steps.create.outputs.id }}" \
               -H "Authorization: Bearer ${GC_TOKEN}")
-            STATUS=$(echo "$RESP" | grep -o '"state":"[^"]*"' | head -1 | cut -d'"' -f4)
+            STATUS=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('state',''))" 2>/dev/null || echo "")
             echo "Attempt $i: state=$STATUS"
             if [ "$STATUS" = "done" ]; then
-              LAST_HIT=$(echo "$RESP" | grep -o '"last_hit_id":[0-9]*' | head -1 | cut -d: -f2)
+              LAST_HIT=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('last_hit_id',''))" 2>/dev/null || echo "")
               echo "Export ready. last_hit_id=$LAST_HIT"
+              mkdir -p data/goatcounter-backup
               echo "$LAST_HIT" > data/goatcounter-backup/.last-export
               exit 0
             fi
