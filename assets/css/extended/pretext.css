@@ -1,0 +1,45 @@
+/* ===== Pretext: Truncation ===== */
+.entry-content.pretext-truncated {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+    display: block;
+}
+
+/* ===== Pretext: Canvas Hero ===== */
+.pretext-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-canvas {
+    display: block;
+    width: 100%;
+    min-height: 320px;
+}
+
+.hero-social-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: var(--gap);
+}
+
+.pretext-hero .entry-header,
+.pretext-hero .entry-content {
+    visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Reduced motion: static text, no animation */
+@media (prefers-reduced-motion: reduce) {
+    .hero-canvas {
+        display: none;
+    }
+    .pretext-hero .entry-header,
+    .pretext-hero .entry-content {
+        visibility: visible;
+        position: static;
+        pointer-events: auto;
+    }
+}

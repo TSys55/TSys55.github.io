@@ -1,0 +1,50 @@
+[
+  {
+    "num": 1, "name": "乾", "symbol": "☰", "binary": "111", "element": "metal",
+    "nature": "天", "direction": "西北", "family": "父", "body": "首",
+    "animal": "马", "organ": "大肠", "taste": "辛", "color": "赤白",
+    "season": "秋冬间", "character": "健"
+  },
+  {
+    "num": 2, "name": "兑", "symbol": "☱", "binary": "011", "element": "metal",
+    "nature": "泽", "direction": "西", "family": "少女", "body": "口",
+    "animal": "羊", "organ": "肺", "taste": "辛", "color": "白",
+    "season": "秋", "character": "悦"
+  },
+  {
+    "num": 3, "name": "离", "symbol": "☲", "binary": "101", "element": "fire",
+    "nature": "火", "direction": "南", "family": "中女", "body": "目",
+    "animal": "雉", "organ": "心", "taste": "苦", "color": "赤紫",
+    "season": "夏", "character": "丽"
+  },
+  {
+    "num": 4, "name": "震", "symbol": "☳", "binary": "001", "element": "wood",
+    "nature": "雷", "direction": "东", "family": "长男", "body": "足",
+    "animal": "龙", "organ": "肝", "taste": "酸", "color": "青",
+    "season": "春", "character": "动"
+  },
+  {
+    "num": 5, "name": "巽", "symbol": "☴", "binary": "110", "element": "wood",
+    "nature": "风", "direction": "东南", "family": "长女", "body": "股",
+    "animal": "鸡", "organ": "胆", "taste": "酸", "color": "绿",
+    "season": "春夏间", "character": "入"
+  },
+  {
+    "num": 6, "name": "坎", "symbol": "☵", "binary": "010", "element": "water",
+    "nature": "水", "direction": "北", "family": "中男", "body": "耳",
+    "animal": "猪", "organ": "肾", "taste": "咸", "color": "黑",
+    "season": "冬", "character": "陷"
+  },
+  {
+    "num": 7, "name": "艮", "symbol": "☶", "binary": "100", "element": "earth",
+    "nature": "山", "direction": "东北", "family": "少男", "body": "手",
+    "animal": "狗", "organ": "胃", "taste": "甘", "color": "棕黄",
+    "season": "冬春间", "character": "止"
+  },
+  {
+    "num": 8, "name": "坤", "symbol": "☷", "binary": "000", "element": "earth",
+    "nature": "地", "direction": "西南", "family": "母", "body": "腹",
+    "animal": "牛", "organ": "脾", "taste": "甘", "color": "黄黑",
+    "season": "夏秋间", "character": "顺"
+  }
+]

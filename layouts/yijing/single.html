@@ -1,0 +1,61 @@
+{{- define "main" }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">{{ .Description }}</div>
+    {{- end }}
+  </header>
+
+  <div id="meihua-app">
+    <!-- 起卦方式选择 -->
+    <div class="mh-methods">
+      <button class="mh-method-btn mh-method-btn--active" data-method="time">按时起卦</button>
+      <button class="mh-method-btn" data-method="number">报数起卦</button>
+      <button class="mh-method-btn" data-method="char">字数起卦</button>
+      <button class="mh-method-btn" data-method="random">心念起卦</button>
+    </div>
+
+    <!-- 输入面板 -->
+    <div class="mh-input-area">
+      <div id="mh-panel-time" class="mh-input-panel">
+        <p class="mh-hint" id="mh-time-info"></p>
+        <p class="mh-hint mh-hint--sub">以当前农历时间自动起卦</p>
+      </div>
+
+      <div id="mh-panel-number" class="mh-input-panel mh-hidden">
+        <p class="mh-hint">请输入两个正整数（可输入第三个作为动爻数）</p>
+        <div class="mh-input-row">
+          <input type="text" id="mh-num1" class="mh-input" placeholder="第一个数" inputmode="numeric" autocomplete="off">
+          <input type="text" id="mh-num2" class="mh-input" placeholder="第二个数" inputmode="numeric" autocomplete="off">
+          <input type="text" id="mh-num3" class="mh-input" placeholder="动爻数（选填）" inputmode="numeric" autocomplete="off">
+        </div>
+      </div>
+
+      <div id="mh-panel-char" class="mh-input-panel mh-hidden">
+        <p class="mh-hint">请输入任意文字，以字数起卦</p>
+        <textarea id="mh-text" class="mh-textarea" placeholder="在此输入..." rows="3"></textarea>
+        <span class="mh-char-count" id="mh-char-count">0 字</span>
+      </div>
+
+      <div id="mh-panel-random" class="mh-input-panel mh-hidden">
+        <p class="mh-hint">静心默念所问之事，然后点击起卦</p>
+        <p class="mh-hint mh-hint--sub">系统将以随机数起卦，天机不可测</p>
+      </div>
+
+      <div class="mh-action-row">
+        <button id="mh-divine-btn" class="mh-divine-btn">起卦</button>
+      </div>
+
+      <div id="mh-error" class="mh-error mh-hidden"></div>
+    </div>
+
+    <div id="mh-result" class="mh-result mh-hidden"></div>
+  </div>
+</article>
+
+<script type="module" src="/js/meihua-ui.mjs"></script>
+
+{{- end }}

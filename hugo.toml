@@ -98,6 +98,12 @@ buildFuture = true
   weight = 5
 
 [[menu.main]]
+  identifier = "yijing"
+  name = "易卦"
+  url = "/yijing/"
+  weight = 7
+
+[[menu.main]]
   identifier = "categories"
   name = "分类"
   url = "/categories/"

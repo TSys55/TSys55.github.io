@@ -1,0 +1,396 @@
+/* ─── 梅花易数卜卦工具样式 ─── */
+
+:root {
+  --mh-ti-color: #2563eb;
+  --mh-yong-color: #dc2626;
+  --mh-moving-color: #f59e0b;
+  --mh-yao-color: var(--primary);
+  --mh-bg: var(--theme);
+  --mh-card-bg: rgba(128, 128, 128, 0.06);
+  --mh-border: rgba(128, 128, 128, 0.15);
+}
+
+[data-theme="dark"] {
+  --mh-card-bg: rgba(255, 255, 255, 0.04);
+  --mh-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── 方法选择 ─── */
+
+.mh-methods {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.mh-method-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--mh-border);
+  border-radius: 8px;
+  background: var(--mh-card-bg);
+  color: var(--content);
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s;
+}
+
+.mh-method-btn:hover {
+  border-color: var(--primary);
+}
+
+.mh-method-btn--active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* ─── 输入区域 ─── */
+
+.mh-input-area {
+  margin-bottom: 24px;
+}
+
+.mh-input-panel {
+  padding: 16px;
+  border: 1px solid var(--mh-border);
+  border-radius: 8px;
+  background: var(--mh-card-bg);
+  margin-bottom: 16px;
+}
+
+.mh-hint {
+  margin: 0 0 8px;
+  color: var(--content);
+  font-size: 0.95em;
+}
+
+.mh-hint--sub {
+  opacity: 0.7;
+  font-size: 0.85em;
+}
+
+.mh-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.mh-input {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px 12px;
+  border: 1px solid var(--mh-border);
+  border-radius: 6px;
+  background: var(--mh-bg);
+  color: var(--content);
+  font-size: 1em;
+}
+
+.mh-input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+
+.mh-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--mh-border);
+  border-radius: 6px;
+  background: var(--mh-bg);
+  color: var(--content);
+  font-size: 1em;
+  resize: vertical;
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+
+.mh-textarea:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+
+.mh-char-count {
+  display: block;
+  text-align: right;
+  font-size: 0.8em;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+.mh-action-row {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.mh-divine-btn {
+  padding: 12px 48px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.1em;
+}
+
+.mh-divine-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.mh-divine-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mh-error {
+  color: #dc2626;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.9em;
+}
+
+/* ─── 结果区域 ─── */
+
+.mh-result {
+  border-top: 1px solid var(--mh-border);
+  padding-top: 24px;
+  animation: mhFadeIn 0.4s ease;
+}
+
+.mh-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mh-result-time {
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+/* ─── 卦象卡片 ─── */
+
+.mh-hexagrams-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.mh-card {
+  text-align: center;
+  padding: 16px 12px;
+  border: 1px solid var(--mh-border);
+  border-radius: 10px;
+  background: var(--mh-card-bg);
+  min-width: 120px;
+  flex: 1;
+  max-width: 180px;
+}
+
+.mh-card__label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.mh-card__trigrams {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mh-trigram-label {
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+.mh-hexagram-svg {
+  width: 60px;
+  height: 88px;
+  margin: 4px 0;
+}
+
+.mh-yao--moving {
+  animation: mhPulse 1.5s ease-in-out infinite;
+}
+
+.mh-card__name {
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+.mh-card__judgment {
+  font-size: 0.8em;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* ─── 吉凶标记 ─── */
+
+.mh-fortune-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+.mh-fortune--great { background: #16a34a22; color: #16a34a; }
+.mh-fortune--good { background: #2563eb22; color: #2563eb; }
+.mh-fortune--neutral { background: #9333ea22; color: #9333ea; }
+.mh-fortune--slight { background: #d9770622; color: #d97706; }
+.mh-fortune--bad { background: #dc262622; color: #dc2626; }
+
+/* ─── 分析区域 ─── */
+
+.mh-analysis {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mh-analysis__section {
+  margin-bottom: 20px;
+}
+
+.mh-analysis__section h3 {
+  font-size: 1em;
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--mh-border);
+}
+
+.mh-ti-yong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.mh-ti-label, .mh-yong-label {
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+.mh-trigram-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.mh-trigram-chip--ti {
+  background: #2563eb18;
+  border: 1px solid #2563eb44;
+  color: var(--mh-ti-color);
+}
+
+.mh-trigram-chip--yong {
+  background: #dc262618;
+  border: 1px solid #dc262644;
+  color: var(--mh-yong-color);
+}
+
+.mh-relation-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  background: var(--mh-card-bg);
+  border: 1px solid var(--mh-border);
+}
+
+.mh-moving-info {
+  text-align: center;
+  font-size: 0.85em;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.mh-analysis-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mh-analysis-list li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--mh-border);
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+.mh-analysis-list li:last-child {
+  border-bottom: none;
+}
+
+.mh-quote {
+  margin: 8px 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--primary);
+  background: var(--mh-card-bg);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+}
+
+.mh-image-text {
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+/* ─── 工具类 ─── */
+
+.mh-hidden {
+  display: none !important;
+}
+
+/* ─── 动画 ─── */
+
+@keyframes mhFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mhPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-yao--moving { animation: none; }
+  .mh-result { animation: none; }
+  .mh-divine-btn:hover:not(:disabled) { transform: none; }
+}
+
+/* ─── 响应式 ─── */
+
+@media (max-width: 480px) {
+  .mh-hexagrams-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .mh-card {
+    max-width: 200px;
+    width: 100%;
+  }
+  .mh-input-row {
+    flex-direction: column;
+  }
+  .mh-ti-yong {
+    flex-direction: column;
+  }
+}

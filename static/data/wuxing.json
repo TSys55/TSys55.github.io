@@ -1,0 +1,26 @@
+{
+  "elements": ["wood", "fire", "earth", "metal", "water"],
+  "elementNames": {
+    "wood": "木", "fire": "火", "earth": "土", "metal": "金", "water": "水"
+  },
+  "generate": {
+    "wood": "fire", "fire": "earth", "earth": "metal", "metal": "water", "water": "wood"
+  },
+  "control": {
+    "wood": "earth", "earth": "water", "water": "fire", "fire": "metal", "metal": "wood"
+  },
+  "bridge": {
+    "metal_wood": "water",
+    "wood_earth": "fire",
+    "earth_water": "metal",
+    "water_fire": "wood",
+    "fire_metal": "earth"
+  },
+  "seasons": {
+    "spring":     { "months": [1, 2],      "prosperous": "wood",  "supporting": "fire",  "resting": "water", "imprisoned": "metal", "dead": "earth" },
+    "summer":     { "months": [4, 5],      "prosperous": "fire",  "supporting": "earth", "resting": "wood",  "imprisoned": "water", "dead": "metal" },
+    "autumn":     { "months": [7, 8],      "prosperous": "metal", "supporting": "water", "resting": "earth", "imprisoned": "fire",  "dead": "wood" },
+    "winter":     { "months": [10, 11],    "prosperous": "water", "supporting": "wood",  "resting": "metal", "imprisoned": "earth", "dead": "fire" },
+    "transition": { "months": [3, 6, 9, 12], "prosperous": "earth", "supporting": "metal", "resting": "fire", "imprisoned": "wood",  "dead": "water" }
+  }
+}
