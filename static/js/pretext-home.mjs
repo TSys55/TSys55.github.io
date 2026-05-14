@@ -1,20 +1,12 @@
 /**
  * Pretext Home Orchestrator
- * Loads Pretext from CDN, initializes all homepage features.
+ * Loads Pretext via shared loader, initializes all homepage features.
  */
-const PRETEXT_CDN = 'https://cdn.jsdelivr.net/npm/@chenglou/pretext@0.0.7/dist/layout.js';
+import { loadPretext } from './pretext-loader.mjs';
 
 async function init() {
-    if (!window.Intl?.Segmenter) return;
-
-    let P;
-    try {
-        P = await import(PRETEXT_CDN);
-    } catch {
-        return;
-    }
-
-    await document.fonts.ready;
+    const P = await loadPretext();
+    if (!P) return;
 
     const { initTruncation } = await import('/js/pretext-truncate.mjs');
     initTruncation(P);

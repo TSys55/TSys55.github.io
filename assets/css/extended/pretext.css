@@ -92,3 +92,100 @@
         pointer-events: auto;
     }
 }
+
+/* ===== About Page Signature ===== */
+.about-signature {
+    margin-bottom: 32px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.signature-canvas {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    line-height: 1.15;
+    letter-spacing: 0;
+    color: var(--primary);
+    cursor: crosshair;
+    user-select: none;
+    white-space: pre;
+    margin: 0;
+}
+
+.signature-canvas .sig-cell {
+    display: inline;
+}
+
+@media (max-width: 768px) {
+    .signature-canvas {
+        font-size: 6px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .signature-canvas .sig-cell {
+        transition: none;
+    }
+}
+
+/* ===== Drop Cap ===== */
+.has-drop-cap {
+    position: relative;
+    overflow: hidden;
+}
+
+.drop-cap-letter {
+    float: left;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 56px;
+    line-height: 0.85;
+    padding-right: 8px;
+    padding-top: 4px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .drop-cap-letter {
+        font-size: 40px;
+    }
+}
+
+/* ===== Yijing Unicode Enhancement ===== */
+.mh-unicode-hexagram {
+    font-size: 24px;
+    line-height: 1.5;
+    text-align: center;
+    letter-spacing: 0.15em;
+    color: var(--primary);
+    margin-top: 4px;
+}
+
+.mh-unicode-yao {
+    display: block;
+    animation: mhBrightnessWave 3s ease-in-out infinite;
+}
+
+.mh-unicode-yao--moving {
+    color: var(--mh-moving-color, #e74c3c);
+    font-weight: bold;
+}
+
+@keyframes mhBrightnessWave {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mh-unicode-yao {
+        animation: none;
+    }
+}
+
+/* ===== Search Highlight ===== */
+.search-highlight {
+    background: rgba(128, 128, 128, 0.25);
+    color: inherit;
+    padding: 1px 2px;
+    border-radius: 2px;
+}

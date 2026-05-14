@@ -1,0 +1,105 @@
+{{- define "main" }}
+<style>
+.not-found-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    padding: 24px;
+}
+.ascii-404 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 1.15;
+    letter-spacing: 0.05em;
+    color: var(--primary);
+    margin: 0;
+    user-select: none;
+    white-space: pre;
+}
+.not-found-message {
+    margin-top: 32px;
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+.not-found-message a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+.not-found-message p { margin: 8px 0; }
+@media (max-width: 768px) {
+    .ascii-404 { font-size: 7px; letter-spacing: 0.02em; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ascii-404 { animation: none !important; }
+}
+</style>
+<div class="not-found-page">
+  <pre class="ascii-404" id="ascii-404" aria-label="404"></pre>
+  <div class="not-found-message">
+    <p>页面未找到</p>
+    <a href="/">返回首页</a>
+  </div>
+</div>
+<script>
+(function() {
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DENSITY = [' ', '·', ':', '░', '▒', '▓', '█'];
+    var BITMAP = [
+        '0000000111111000000001111110000000',
+        '0000011110011110000011100101111000',
+        '0001111000011110000111000001111100',
+        '0011110000011110001110000000111110',
+        '0111100000011110011100000000011110',
+        '0111000000011110111000000000001110',
+        '1110000000011111110000000000001110',
+        '1110000000011111110000000000001110',
+        '1110000000000000111000000000011110',
+        '1110000000000000111000000000111100',
+        '0111000000000000111100000011110000',
+        '0111100000000000011110000111100000',
+        '0011110000000000001111111100000000',
+        '0001111000000000000111111000000000',
+        '0000011110000000000001110000000000',
+    ];
+    var ROWS = BITMAP.length;
+    var el = document.getElementById('ascii-404');
+    if (!el) return;
+
+    var cells = [];
+    var html = '';
+    for (var r = 0; r < ROWS; r++) {
+        for (var c = 0; c < BITMAP[r].length; c++) {
+            var filled = BITMAP[r][c] === '1';
+            var idx = filled ? DENSITY.length - 1 : 0;
+            html += '<span data-r="' + r + '" data-c="' + c + '" data-f="' + (filled ? 1 : 0) + '">' + DENSITY[idx] + '</span>';
+        }
+        html += '\n';
+    }
+    el.innerHTML = html;
+
+    if (prefersReduced) return;
+
+    var spans = el.querySelectorAll('span');
+    var t = 0;
+
+    function animate() {
+        t += 0.02;
+        for (var i = 0; i < spans.length; i++) {
+            var s = spans[i];
+            if (s.dataset.f !== '1') continue;
+            var r = parseInt(s.dataset.r);
+            var c = parseInt(s.dataset.c);
+            var wave = Math.sin(t * 2 + r * 0.4 + c * 0.15);
+            var idx = Math.round(4 + wave * 2);
+            idx = Math.max(2, Math.min(6, idx));
+            s.textContent = DENSITY[idx];
+        }
+        requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+})();
+</script>
+{{- end }}

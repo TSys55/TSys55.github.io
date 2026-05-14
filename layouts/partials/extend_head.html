@@ -1,3 +1,19 @@
 {{- if .IsHome }}
 <script type="module" src="/js/pretext-home.mjs"></script>
 {{- end }}
+
+{{- if eq .Layout "about" }}
+<script type="module" src="/js/pretext-about.mjs"></script>
+{{- end }}
+
+{{- if eq .Layout "yijing" }}
+<script type="module" src="/js/pretext-yijing.mjs"></script>
+{{- end }}
+
+{{- if and .IsPage (ne .Layout "search") (ne .Layout "yijing") (ne .Layout "about") (not .IsHome) .Params.dropCap }}
+<script type="module" src="/js/pretext-dropcap.mjs"></script>
+{{- end }}
+
+{{- if or (eq .Layout "search") (eq .RelPermalink "/search/") }}
+<script type="module" src="/js/pretext-search.mjs"></script>
+{{- end }}
