@@ -11,22 +11,28 @@
     overflow: hidden;
 }
 
+/* ===== Pretext: Ambient Background ===== */
+.ambient-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    transition: opacity 0.3s ease;
+}
+
+/* ===== Pretext: Editorial Engine Hero ===== */
 .editorial-stage {
     position: relative;
     width: 100%;
     min-height: 320px;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.hero-orb {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10;
-    will-change: transform;
-    transition: opacity 0.3s ease;
 }
 
 .hero-headline-line {
@@ -73,6 +79,9 @@
 
 /* Reduced motion: static text, no animation */
 @media (prefers-reduced-motion: reduce) {
+    .ambient-layer {
+        display: none;
+    }
     .editorial-stage {
         display: none;
     }

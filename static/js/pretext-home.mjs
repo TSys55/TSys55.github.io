@@ -19,10 +19,14 @@ async function init() {
     const { initTruncation } = await import('/js/pretext-truncate.mjs');
     initTruncation(P);
 
-    // Grid disabled — single-column layout
+    // Initialize ambient background first
+    const { initAmbient } = await import('/js/pretext-ambient.mjs');
+    const ambient = initAmbient();
+    if (!ambient) return;
 
+    // Initialize hero with ambient reference
     const { initHero } = await import('/js/pretext-hero.mjs');
-    initHero(P);
+    initHero(P, ambient);
 }
 
 init();
