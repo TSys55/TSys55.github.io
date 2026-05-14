@@ -5,16 +5,49 @@
     display: block;
 }
 
-/* ===== Pretext: Canvas Hero ===== */
+/* ===== Pretext: Editorial Engine Hero ===== */
 .pretext-hero {
     position: relative;
     overflow: hidden;
 }
 
-.hero-canvas {
-    display: block;
+.editorial-stage {
+    position: relative;
     width: 100%;
     min-height: 320px;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+    will-change: transform;
+    transition: opacity 0.3s ease;
+}
+
+.hero-headline-line {
+    position: absolute;
+    white-space: pre;
+    z-index: 2;
+    font-weight: 700;
+    color: var(--primary);
+    user-select: text;
+    -webkit-user-select: text;
+    transition: color 0.3s ease;
+}
+
+.hero-line {
+    position: absolute;
+    white-space: pre;
+    z-index: 1;
+    color: var(--secondary);
+    user-select: text;
+    -webkit-user-select: text;
+    transition: color 0.3s ease;
 }
 
 .hero-social-overlay {
@@ -22,6 +55,7 @@
     bottom: 0;
     left: 0;
     padding: var(--gap);
+    z-index: 20;
 }
 
 .pretext-hero .entry-header,
@@ -31,9 +65,15 @@
     pointer-events: none;
 }
 
+@media (max-width: 768px) {
+    .editorial-stage {
+        min-height: 260px;
+    }
+}
+
 /* Reduced motion: static text, no animation */
 @media (prefers-reduced-motion: reduce) {
-    .hero-canvas {
+    .editorial-stage {
         display: none;
     }
     .pretext-hero .entry-header,
