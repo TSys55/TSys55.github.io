@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════════
+   Code Block Enhancement — Language badge, copy feedback
+   ═══════════════════════════════════════════════════ */
+
+.code-block-wrapper {
+    position: relative;
+}
+
+.code-block-wrapper .code-lang-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 10px;
+    font-size: 0.7em;
+    font-family: var(--mono-font);
+    color: var(--secondary);
+    background: var(--border);
+    border-radius: 0 var(--radius) 0 var(--radius);
+    opacity: 0.7;
+    user-select: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.code-block-wrapper:hover .code-lang-badge {
+    opacity: 1;
+}
+
+/* Override PaperMod's copy button */
+.code-block-wrapper .code-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 0.75em;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--secondary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    font-family: var(--mono-font);
+}
+
+.code-block-wrapper:hover .code-copy-btn {
+    opacity: 1;
+}
+
+.code-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.code-copy-btn--copied {
+    color: #4ade80;
+    border-color: #4ade80;
+}

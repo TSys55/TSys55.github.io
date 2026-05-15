@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════════════════
+   Theme Variants — Three visual themes
+   水墨 (Ink Wash) / 竹简 (Bamboo) / 深夜 (Night)
+
+   Using !important on CSS variables to override PaperMod's
+   :root and :root[data-theme="dark"] declarations, since
+   the extended CSS is concatenated before theme-vars.css
+   in the Hugo pipeline.
+   ═══════════════════════════════════════════════════ */
+
+/* ─── 水墨 (Ink Wash) — Cool paper, ink black, indigo accent ─── */
+html.theme-ink {
+    --theme: #faf8f5 !important;
+    --entry: #fffdf9 !important;
+    --border: #e8e2d8 !important;
+    --code-bg: #f5f0e8 !important;
+    --primary: #1a1a2e !important;
+    --secondary: #5a5a6e !important;
+    --content: #2c2c3e !important;
+    --tertiary: #c4bfb5 !important;
+    --accent: #2d4a7a !important;
+    --accent-soft: rgba(45, 74, 122, 0.08) !important;
+    --accent-hover: #1a3a5c !important;
+    --code-block-bg: #1e1e2e !important;
+    color-scheme: light !important;
+}
+
+/* ─── 竹简 (Bamboo) — Warm parchment, bamboo green, aged paper ─── */
+html.theme-bamboo {
+    --theme: #ede0b4 !important;
+    --entry: #f5e8c0 !important;
+    --border: #c8b488 !important;
+    --code-bg: #e0d0a4 !important;
+    --primary: #2e1e0e !important;
+    --secondary: #6b5a3e !important;
+    --content: #3a2818 !important;
+    --tertiary: #b8a478 !important;
+    --accent: #3d7a35 !important;
+    --accent-soft: rgba(61, 122, 53, 0.12) !important;
+    --accent-hover: #2e6028 !important;
+    --code-block-bg: #2a1e12 !important;
+    color-scheme: light !important;
+}
+
+/* Bamboo-specific: warm paper texture + vertical line accent */
+html.theme-bamboo body {
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 3px,
+            rgba(180, 155, 100, 0.04) 3px,
+            rgba(180, 155, 100, 0.04) 4px
+        );
+}
+
+html.theme-bamboo .post-entry {
+    border-left: 3px solid var(--accent);
+    background: linear-gradient(135deg, var(--entry), rgba(200, 170, 100, 0.08));
+}
+
+html.theme-bamboo .first-entry {
+    background: linear-gradient(135deg, var(--entry) 0%, rgba(61, 122, 53, 0.08) 100%);
+    border-left: 4px solid var(--accent);
+}
+
+html.theme-bamboo .menu a::after {
+    background: var(--accent);
+}
+
+html.theme-bamboo blockquote {
+    border-left-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+/* ─── 深夜 (Night) — Deep ink, moonlight silver, warm gold ─── */
+html.theme-night {
+    --theme: #0d1117 !important;
+    --entry: #161b22 !important;
+    --border: #252c35 !important;
+    --code-bg: #1a2028 !important;
+    --primary: #e0dcd4 !important;
+    --secondary: #8a8a9e !important;
+    --content: #c8c4bc !important;
+    --tertiary: #3a3a4e !important;
+    --accent: #c9a96e !important;
+    --accent-soft: rgba(201, 169, 110, 0.1) !important;
+    --accent-hover: #dbb978 !important;
+    --code-block-bg: #0a0e14 !important;
+    color-scheme: dark !important;
+}
+
+/* Night-specific: subtle warm glow on cards */
+html.theme-night .first-entry {
+    background: linear-gradient(135deg, var(--entry) 0%, rgba(201, 169, 110, 0.06) 100%);
+    border-left: 4px solid var(--accent);
+}
+
+html.theme-night .post-entry:hover,
+html.theme-night .post-entry:focus-within {
+    border-left-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(201, 169, 110, 0.08);
+}
+
+html.theme-night .menu a::after {
+    background: var(--accent);
+}

@@ -1,0 +1,126 @@
+/* ═══════════════════════════════════════════════════
+   Stats Dashboard — Blog statistics page
+   ═══════════════════════════════════════════════════ */
+
+.stats-page {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.stats-page h1 {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    padding: 20px;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.stat-card__value {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.stat-card__label {
+    font-size: 0.85em;
+    color: var(--secondary);
+    margin-top: 4px;
+}
+
+.stats-section {
+    margin-bottom: 40px;
+}
+
+.stats-section h2 {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.stats-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 160px;
+    padding: 0 8px;
+}
+
+.stats-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.stats-bar__fill {
+    width: 100%;
+    max-width: 60px;
+    background: var(--accent);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.3s ease;
+    min-height: 4px;
+}
+
+.stats-bar__label {
+    font-size: 0.75em;
+    color: var(--secondary);
+    margin-top: 6px;
+}
+
+.stats-bar__count {
+    font-size: 0.75em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.stats-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stats-cat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.88em;
+}
+
+.stats-cat__name {
+    color: var(--content);
+}
+
+.stats-cat__count {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-bar-chart {
+        height: 120px;
+    }
+}

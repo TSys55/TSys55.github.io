@@ -1,0 +1,28 @@
+/* ═══════════════════════════════════════════════════
+   404 Page — Mini-game styles
+   ═══════════════════════════════════════════════════ */
+
+.game-404 {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.game-404__canvas {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--entry);
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.game-404__score {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: var(--secondary);
+}
+
+.game-404__hint {
+    font-size: 0.8em;
+    color: var(--tertiary);
+    margin-top: 4px;
+}

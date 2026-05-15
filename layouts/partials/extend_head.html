@@ -1,9 +1,14 @@
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+
 {{- if .IsHome }}
 <script type="module" src="/js/pretext-home.mjs"></script>
+<script type="module" src="/js/particle-calligraphy.mjs"></script>
 {{- end }}
 
 {{- if eq .Layout "about" }}
 <script type="module" src="/js/pretext-about.mjs"></script>
+<script type="module" src="/js/about-timeline.mjs"></script>
 {{- end }}
 
 {{- if eq .Layout "yijing" }}
@@ -17,3 +22,20 @@
 {{- if or (eq .Layout "search") (eq .RelPermalink "/search/") }}
 <script type="module" src="/js/pretext-search.mjs"></script>
 {{- end }}
+
+{{- /* Batch 2: Reading UI — only on single post pages */}}
+{{- if and .IsPage (ne .Layout "search") (ne .Layout "yijing") (ne .Layout "about") (not .IsHome) }}
+<script type="module" src="/js/reading-progress.mjs"></script>
+<script type="module" src="/js/toc-spy.mjs"></script>
+<script type="module" src="/js/back-to-top.mjs"></script>
+<script type="module" src="/js/code-enhance.mjs"></script>
+<script type="module" src="/js/lightbox.mjs"></script>
+{{- end }}
+
+{{- /* Batch 3: Tag cloud — on terms listing pages */}}
+{{- if eq .Kind "taxonomy" }}
+<script type="module" src="/js/tag-cloud.mjs"></script>
+{{- end }}
+
+{{- /* Batch 4: Theme switcher — all pages */}}
+<script type="module" src="/js/theme-switcher.mjs"></script>

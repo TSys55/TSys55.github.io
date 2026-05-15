@@ -1,0 +1,311 @@
+/* ═══════════════════════════════════════════════════
+   TSys55 Blog — Visual Personality Theme
+   Chinese ink-inspired palette, LXGW WenKai font,
+   redesigned cards, enhanced dark mode, micro-interactions
+   ═══════════════════════════════════════════════════ */
+
+/* ─── 1. Font Loading ─── */
+
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css');
+
+:root {
+    --body-font: "LXGW WenKai", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --heading-font: "LXGW WenKai", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --mono-font: "JetBrains Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+}
+
+body {
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.post-title,
+.entry-header h2,
+.first-entry .entry-header h1 {
+    font-family: var(--heading-font);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+code, pre, .signature-canvas {
+    font-family: var(--mono-font) !important;
+}
+
+/* ─── Color System is managed by theme-variants.css ─── */
+/* Shadows are theme-independent */
+
+:root {
+    --shadow-sm: 0 1px 3px rgba(26, 26, 46, 0.06);
+    --shadow-md: 0 4px 12px rgba(26, 26, 46, 0.08);
+    --shadow-lg: 0 8px 24px rgba(26, 26, 46, 0.10);
+}
+
+.theme-night {
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.theme-bamboo {
+    --shadow-sm: 0 1px 3px rgba(62, 43, 26, 0.08);
+    --shadow-md: 0 4px 12px rgba(62, 43, 26, 0.10);
+    --shadow-lg: 0 8px 24px rgba(62, 43, 26, 0.12);
+}
+
+/* Apply accent to links */
+a {
+    color: var(--accent);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+.post-content a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-color: var(--accent-soft);
+    text-decoration-thickness: 1.5px;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.post-content a:hover {
+    text-decoration-color: var(--accent);
+}
+
+/* ─── 4. Post Card Redesign ─── */
+
+.post-entry {
+    border: none;
+    border-left: 3px solid transparent;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-left-color 0.25s ease;
+}
+
+.post-entry:hover,
+.post-entry:focus-within {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--accent);
+}
+
+/* Featured (first) post */
+.first-entry {
+    background: linear-gradient(135deg, var(--entry) 0%, var(--accent-soft) 100%);
+    border-left: 4px solid var(--accent);
+    box-shadow: var(--shadow-md);
+    padding: calc(var(--gap) * 1.25);
+}
+
+.first-entry:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.entry-footer {
+    color: var(--secondary);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+}
+
+/* Category pill */
+.entry-header .entry-categories {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+/* ─── 5. Header & Navigation ─── */
+
+.menu a {
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.25s ease, left 0.25s ease;
+}
+
+.menu a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.menu .active::after {
+    width: 100%;
+    left: 0;
+    background: var(--accent);
+}
+
+/* ─── 6. Theme Toggle Animation ─── */
+
+.theme-toggle {
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(30deg);
+}
+
+/* ─── 7. Code Blocks ─── */
+
+.post-content pre {
+    background: var(--code-block-bg) !important;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+}
+
+.post-content :not(pre) > code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* ─── 8. Blockquote ─── */
+
+.post-content blockquote {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 12px 20px;
+}
+
+.post-content blockquote p {
+    color: var(--content);
+}
+
+/* ─── 9. Table ─── */
+
+.post-content table {
+    border-collapse: collapse;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.post-content th {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.post-content th,
+.post-content td {
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+}
+
+.post-content tr:hover td {
+    background: var(--accent-soft);
+}
+
+/* ─── 10. TOC ─── */
+
+.toc {
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.toc a:hover {
+    color: var(--accent);
+}
+
+/* ─── 11. Scrollbar ─── */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--theme);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--tertiary);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+/* ─── 12. Selection ─── */
+
+::selection {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ─── 13. Footer ─── */
+
+.footer {
+    border-top: 1px solid var(--border);
+    color: var(--secondary);
+}
+
+/* ─── 14. Smooth Theme Transition ─── */
+
+html {
+    transition: background-color 0.3s ease;
+}
+
+body,
+.post-entry,
+.first-entry,
+.toc,
+.footer {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ─── 15. Responsive ─── */
+
+@media screen and (max-width: 768px) {
+    .first-entry {
+        min-height: 240px;
+        padding: var(--gap);
+    }
+
+    .first-entry .entry-header h1 {
+        font-size: 26px;
+    }
+
+    .entry-header h2 {
+        font-size: 20px;
+    }
+}
+
+/* ─── 16. Reduced Motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+    .post-entry,
+    .first-entry,
+    .menu a::after,
+    .theme-toggle,
+    html,
+    body,
+    .toc,
+    .footer {
+        transition: none;
+    }
+}

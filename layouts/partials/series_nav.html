@@ -1,0 +1,54 @@
+{{- /* Series Navigation — prev/next within a post series */}}
+{{- $series := .Params.series }}
+{{- if $series }}
+{{- $seriesName := index $series 0 }}
+{{- $seriesOrder := .Params.seriesOrder | default 1 }}
+{{- $allSeries := where (where site.RegularPages "Params.series" "intersect" $series) "Params.seriesOrder" "ne" nil }}
+{{- $sorted := sort $allSeries "Params.seriesOrder" }}
+{{- $current := .RelPermalink }}
+
+{{- $prev := "" }}
+{{- $next := "" }}
+{{- $total := len $sorted }}
+{{- $position := 0 }}
+
+{{- range $idx, $page := $sorted }}
+{{- if eq $page.RelPermalink $current }}
+{{- $position = add $idx 1 }}
+{{- if gt $idx 0 }}
+{{- $prev = index $sorted (sub $idx 1) }}
+{{- end }}
+{{- if lt $idx (sub $total 1) }}
+{{- $next = index $sorted (add $idx 1) }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if or $prev $next }}
+<div class="series-nav">
+    <div class="series-nav__header">
+        <span class="series-nav__title">{{ $seriesName }}</span>
+        <span class="series-nav__progress">{{ $position }} / {{ $total }}</span>
+    </div>
+    <div class="series-nav__dots">
+        {{- range $idx, $page := $sorted }}
+        <span class="series-nav__dot{{ if eq $page.RelPermalink $current }} series-nav__dot--active{{ end }}"></span>
+        {{- end }}
+    </div>
+    <div class="series-nav__links">
+        {{- if $prev }}
+        <a href="{{ $prev.RelPermalink }}" class="series-nav__link series-nav__link--prev">
+            ← {{ $prev.Title }}
+        </a>
+        {{- else }}
+        <span></span>
+        {{- end }}
+        {{- if $next }}
+        <a href="{{ $next.RelPermalink }}" class="series-nav__link series-nav__link--next">
+            {{ $next.Title }} →
+        </a>
+        {{- end }}
+    </div>
+</div>
+{{- end }}
+{{- end }}

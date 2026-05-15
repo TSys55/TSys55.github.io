@@ -1,0 +1,94 @@
+/* ═══════════════════════════════════════════════════
+   About Page — Interactive Timeline
+   ═══════════════════════════════════════════════════ */
+
+.about-timeline {
+    position: relative;
+    padding: 24px 0 24px 32px;
+    margin: 32px 0;
+}
+
+.about-timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+}
+
+.tl-item {
+    position: relative;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.tl-item--visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tl-item:last-child {
+    margin-bottom: 0;
+}
+
+.tl-node {
+    position: absolute;
+    left: -27px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--theme);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    z-index: 1;
+}
+
+.tl-date {
+    font-size: 0.8em;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+}
+
+.tl-title {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 2px;
+}
+
+.tl-desc {
+    font-size: 0.88em;
+    color: var(--secondary);
+    line-height: 1.5;
+}
+
+@media screen and (max-width: 768px) {
+    .about-timeline {
+        padding-left: 24px;
+    }
+
+    .about-timeline::before {
+        left: 7px;
+    }
+
+    .tl-node {
+        left: -23px;
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tl-item {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

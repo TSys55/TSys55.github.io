@@ -122,6 +122,12 @@ buildFuture = true
   weight = 20
 
 [[menu.main]]
+  identifier = "stats"
+  name = "统计"
+  url = "/stats/"
+  weight = 23
+
+[[menu.main]]
   identifier = "about"
   name = "关于"
   url = "/about/"

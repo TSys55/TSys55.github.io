@@ -1,0 +1,91 @@
+{{- define "main" }}
+{{- $posts := where site.RegularPages "Type" "==" "posts" }}
+{{- $totalPosts := len $posts }}
+{{- $totalWords := 0 }}
+{{- range $posts }}
+{{- $totalWords = add $totalWords .WordCount }}
+{{- end }}
+{{- $avgWords := 0 }}
+{{- if gt $totalPosts 0 }}
+{{- $avgWords = div $totalWords $totalPosts }}
+{{- end }}
+
+{{- $byYear := dict }}
+{{- range $posts }}
+{{- $y := .Date.Format "2006" }}
+{{- $count := index $byYear $y | default 0 }}
+{{- $byYear = merge $byYear (dict $y (add $count 1)) }}
+{{- end }}
+
+{{- $maxYearCount := 1 }}
+{{- range $byYear }}
+{{- if gt . $maxYearCount }}
+{{- $maxYearCount = . }}
+{{- end }}
+{{- end }}
+
+{{- $cats := dict }}
+{{- range $posts }}
+{{- with .Params.categories }}
+{{- range . }}
+{{- $count := index $cats . | default 0 }}
+{{- $cats = merge $cats (dict . (add $count 1)) }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+  </header>
+
+  <div class="post-content md-content">
+    <div class="stats-page">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ $totalPosts }}</div>
+          <div class="stat-card__label">篇文章</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">{{ $totalWords }}</div>
+          <div class="stat-card__label">总字数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">{{ $avgWords }}</div>
+          <div class="stat-card__label">篇均字数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">{{ len $cats }}</div>
+          <div class="stat-card__label">个分类</div>
+        </div>
+      </div>
+
+      <div class="stats-section">
+        <h2>年度写作</h2>
+        <div class="stats-bar-chart">
+          {{- range $year, $count := $byYear }}
+          <div class="stats-bar">
+            <span class="stats-bar__count">{{ $count }}</span>
+            <div class="stats-bar__fill" style="height: {{ mul (div (float $count) (float $maxYearCount)) 100.0 }}%"></div>
+            <span class="stats-bar__label">{{ $year }}</span>
+          </div>
+          {{- end }}
+        </div>
+      </div>
+
+      <div class="stats-section">
+        <h2>分类分布</h2>
+        <div class="stats-categories">
+          {{- range $cat, $count := $cats }}
+          <a href="{{ printf "/categories/%s" (urlize $cat) | relURL }}" class="stats-cat">
+            <span class="stats-cat__name">{{ $cat }}</span>
+            <span class="stats-cat__count">{{ $count }}</span>
+          </a>
+          {{- end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+{{- end }}

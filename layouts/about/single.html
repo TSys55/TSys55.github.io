@@ -11,6 +11,8 @@
     {{- if not (.Param "disableAnchoredHeadings") }}
     {{- partial "anchored_headings.html" .Content -}}
     {{- else }}{{ .Content }}{{ end }}
+    <h2>成长时间线</h2>
+    <div id="about-timeline" class="about-timeline"></div>
   </div>
 
   <footer class="post-footer">

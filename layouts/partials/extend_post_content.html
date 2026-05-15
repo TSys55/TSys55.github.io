@@ -1,0 +1,38 @@
+{{- /* Related Posts — match by shared tags, fallback to recent */}}
+{{- if and .IsPage (not .Params.hideRelated) }}
+{{- $tags := .Params.tags }}
+{{- $current := .RelPermalink }}
+{{- $related := slice }}
+
+{{- if $tags }}
+{{- range $tag := $tags }}
+{{- $pages := (where site.RegularPages "Params.tags" "intersect" (slice $tag)) }}
+{{- $filtered := (where $pages "RelPermalink" "ne" $current) }}
+{{- $related = $related | append $filtered }}
+{{- end }}
+{{- $related = $related | uniq }}
+{{- end }}
+
+{{- if lt (len $related) 2 }}
+{{- $recent := (where site.RegularPages "RelPermalink" "ne" $current) | first 3 }}
+{{- $related = $related | append $recent | uniq }}
+{{- end }}
+
+{{- $related = $related | first 3 }}
+
+{{- if gt (len $related) 0 }}
+<div class="related-posts">
+    <h3 class="related-posts__title">相关文章</h3>
+    <div class="related-posts__list">
+        {{- range $related }}
+        <a href="{{ .RelPermalink }}" class="related-post-card">
+            <span class="related-post-card__title">{{ .Title }}</span>
+            <span class="related-post-card__date">{{ .Date.Format "2006-01-02" }}</span>
+        </a>
+        {{- end }}
+    </div>
+</div>
+{{- end }}
+{{- end }}
+
+{{- partial "series_nav.html" . }}

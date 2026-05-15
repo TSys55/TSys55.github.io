@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(hugo --minify)"
+      "Bash(hugo --minify)",
+      "mcp__plugin_everything-claude-code_exa__web_search_exa",
+      "mcp__plugin_everything-claude-code_exa__web_fetch_exa",
+      "mcp__plugin_everything-claude-code_playwright__browser_navigate",
+      "mcp__plugin_everything-claude-code_github__get_file_contents",
+      "mcp__context7__resolve-library-id",
+      "mcp__plugin_everything-claude-code_sequential-thinking__sequentialthinking",
+      "Bash(curl -s http://localhost:1313/search/)",
+      "mcp__plugin_everything-claude-code_playwright__browser_console_messages",
+      "mcp__plugin_everything-claude-code_playwright__browser_take_screenshot",
+      "mcp__plugin_everything-claude-code_playwright__browser_click",
+      "mcp__plugin_everything-claude-code_playwright__browser_tabs",
+      "mcp__plugin_everything-claude-code_playwright__browser_evaluate",
+      "Bash(taskkill //F //IM hugo.exe)",
+      "Bash(hugo server *)"
     ]
   }
 }

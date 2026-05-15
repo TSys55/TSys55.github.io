@@ -42,6 +42,10 @@
     <p>页面未找到</p>
     <a href="/">返回首页</a>
   </div>
+  <div class="game-404">
+    <canvas id="game-404-canvas" class="game-404__canvas" width="320" height="240"></canvas>
+    <p class="game-404__hint">← → 或触摸控制，接住掉落的 404</p>
+  </div>
 </div>
 <script>
 (function() {
@@ -102,4 +106,5 @@
     requestAnimationFrame(animate);
 })();
 </script>
+<script type="module" src="/js/404-game.mjs"></script>
 {{- end }}

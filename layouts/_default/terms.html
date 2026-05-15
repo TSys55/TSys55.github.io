@@ -1,0 +1,26 @@
+{{- define "main" }}
+{{- $terms := .Data.Terms }}
+{{- $title := .Title }}
+
+<div class="tag-cloud-page">
+    <h1>{{ $title }}</h1>
+
+    {{- $tagsJSON := slice }}
+    {{- range $terms }}
+    {{- $tagsJSON = $tagsJSON | append (dict "name" .Page.Title "count" .Count "url" .Page.RelPermalink) }}
+    {{- end }}
+
+    <canvas id="tag-cloud-canvas" class="tag-cloud-canvas"
+        data-tags='{{ $tagsJSON | jsonify }}'>
+    </canvas>
+
+    <noscript>
+        <div class="tag-cloud-fallback">
+            {{- range $terms }}
+            <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} ({{ .Count }})</a>
+            {{- end }}
+        </div>
+    </noscript>
+</div>
+
+{{- end }}
