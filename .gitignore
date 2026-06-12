@@ -4,3 +4,4 @@ resources/_gen/
 node_modules/
 .playwright-mcp/
 .idea/
+.claude/
