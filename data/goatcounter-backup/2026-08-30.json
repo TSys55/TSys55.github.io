@@ -1,0 +1,51 @@
+{
+  "date": "2026-08-30",
+  "total_views": 31,
+  "total_pages": 10,
+  "pages": [
+    {
+      "path": "TOTAL",
+      "views": 34
+    },
+    {
+      "path": "/",
+      "views": 18
+    },
+    {
+      "path": "/about/",
+      "views": 3
+    },
+    {
+      "path": "/yijing/",
+      "views": 2
+    },
+    {
+      "path": "/posts/hugo-blog-goatcounter-guide/",
+      "views": 2
+    },
+    {
+      "path": "/search/",
+      "views": 1
+    },
+    {
+      "path": "/archives/",
+      "views": 1
+    },
+    {
+      "path": "/posts/hugo-goatcounter-views-backup/",
+      "views": 1
+    },
+    {
+      "path": "/posts/hugo-future-date-timezone-issue/",
+      "views": 1
+    },
+    {
+      "path": "/posts/my-first-post/",
+      "views": 1
+    },
+    {
+      "path": "/posts/hugo-blog-cms-setup/",
+      "views": 1
+    }
+  ]
+}
